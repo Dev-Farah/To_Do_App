@@ -40,8 +40,8 @@ form {
 .todo li {
     flex-wrap: nowrap;
     max-width: 80% !important;
-
 }
+
 .todo h4 {
     margin: 0;
     margin-bottom: 5px;
@@ -98,6 +98,14 @@ button {
     margin: 0 5px;
 }
 
+.edit-input {
+    background-color: transparent;
+}
+
+.edit-input:focus {
+    outline: none;
+}
+
 .del-btn {
     margin: 0 5px;
 }
@@ -122,4 +130,7 @@ ul {
         max-width: 90%;
     }
 
+    .todo li {
+        max-width: 60% !important;
+    }
 }

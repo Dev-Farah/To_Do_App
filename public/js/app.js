@@ -73,21 +73,45 @@ function deleteAll() {
 }
 
 function editToDo(element) {
-    var toDo = element.parentNode.previousElementSibling.firstElementChild;
+    var toDo = element.parentNode.previousElementSibling.firstElementChild; // h4
+    var toDoLi = element.parentNode.previousElementSibling; // li
 
-    var editedTodo = prompt("Edit To-do", toDo.innerHTML);
-    if (!editedTodo) {
-        editedTodo = prompt("Please enter something, otherwise it will be deleted!", toDo.innerHTML);
-        if (!editedTodo) {
-            alert("Your task is going to be deleted");
-            element.parentNode.parentNode.remove();
+    // Create input field and remove h4
+    editInput = document.createElement('input');
+    toDoLi.appendChild(editInput);
+    editInput.type = 'text';
+    editInput.className = 'edit-input';
+    editInput.value = toDo.innerHTML;
+    toDoLi.removeChild(toDo);
+    element.innerHTML = '<i class="fa-solid fa-check"></i>';
+    element.setAttribute("onclick", "updateToDo(this)");
+}
 
-            countToDo();
-        } else {
-            toDo.innerHTML = editedTodo;
+function updateToDo(element) {
+    var toDoLi = element.parentNode.previousElementSibling; // li
+
+    if (editInput.value.length >= 5 && editInput.value.length <= 34) {
+
+        // Remove Warning if exists
+        if (toDoLi.children.length == 2) {
+            toDoLi.removeChild(span);
         }
+        // Create h4, remove input field and update edited value
+        h4 = document.createElement('h4');
+        h4.textContent = editInput.value;
+        toDoLi.appendChild(h4);
+        toDoLi.removeChild(editInput);
+        element.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+        element.setAttribute("onclick", "editToDo(this)");
+        element.className = "edit-btn";
     } else {
-        toDo.innerHTML = editedTodo;
+        if (toDoLi.children.length == 1) {
+            // Display alert
+            span = document.createElement('span');
+            span.textContent = 'Invalid Entry';
+            span.className = 'alert';
+            toDoLi.appendChild(span);
+        }
     }
 }
 
